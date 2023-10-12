@@ -164,8 +164,8 @@ def inference(net, img_path='', output_path='./', output_name='f', use_gpu=True)
     vis_res = decode_labels(results)
 
     parsing_im = Image.fromarray(vis_res[0])
-    parsing_im.save(output_path+'/{}.png'.format(output_name))
-    cv2.imwrite(output_path+'/{}_gray.png'.format(output_name), results[0, :, :])
+    parsing_im.save(output_path+'/{}.jpg'.format(output_name))
+    # cv2.imwrite(output_path+'/{}_gray.png'.format(output_name), results[0, :, :])
 
     end_time = timeit.default_timer()
     print('time used for the multi-scale image inference' + ' is :' + str(end_time - start_time))
@@ -199,5 +199,17 @@ if __name__ == '__main__':
         use_gpu = False
         raise RuntimeError('must use the gpu!!!!')
 
-    inference(net=net, img_path=opts.img_path,output_path=opts.output_path , output_name=opts.output_name, use_gpu=use_gpu)
+
+    # Check if img_path is a directory
+    if os.path.isdir(opts.img_path):
+        # Get all files in the directory
+        files = os.listdir(opts.img_path)
+        for file in files:
+            # Get the file path
+            file_path = os.path.join(opts.img_path, file)
+            # Get the file name without extension
+            output_name = os.path.splitext(file)[0]
+            inference(net=net, img_path=file_path, output_path=opts.output_path, output_name=output_name, use_gpu=use_gpu)
+    else:
+        inference(net=net, img_path=opts.img_path, output_path=opts.output_path, output_name=opts.output_name, use_gpu=use_gpu)
 

@@ -1,1 +1,4 @@
-python exp/inference/inference.py --loadmodel ./data/pretrained_model/inference.pth --img_path ./img/messi.jpg --output_path ./img/ --output_name /output_file_name
+# img_path can be directory, and output_name will be overwritten in this case.
+CUDA_VISIBLE_DEVICES=4 python /home/ubuntu/YX/code/Graphonomy/exp/inference/inference.py --loadmodel /home/ubuntu/YX/code/Graphonomy/data/pretrained_model/inference.pth --img_path /home/ubuntu/YX/code/virtual_tryon/StableTryOn/datasets/DeepFashion/after_split_512_384/test/image --output_path /home/ubuntu/YX/code/virtual_tryon/StableTryOn/datasets/DeepFashion/after_split_512_384/test/segmentation --output_name /over_written
+
+CUDA_VISIBLE_DEVICES=5 python /home/ubuntu/YX/code/Graphonomy/exp/inference/inference.py --loadmodel /home/ubuntu/YX/code/Graphonomy/data/pretrained_model/inference.pth --img_path /home/ubuntu/YX/code/virtual_tryon/StableTryOn/datasets/DeepFashion/after_split_512_384/train/image --output_path /home/ubuntu/YX/code/virtual_tryon/StableTryOn/datasets/DeepFashion/after_split_512_384/train/segmentation --output_name /over_written
